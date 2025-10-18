@@ -1,0 +1,17 @@
+
+{% extends "layout.html" %}
+    {% block container %}
+                
+        <h1>Hola mundo</h1>
+        <h2>{{ titulo }}</h2>
+        {% for elemento in lista %}
+            <h3>{{ elemento }}</h3>
+        {% endfor %}
+
+        {% if lista %}
+            <h3>La lista no esta vacia</h3>
+        {% else %}
+            <h3>La lista esta vacia</h3>
+        {% endif %}
+
+    {%endblock%}
