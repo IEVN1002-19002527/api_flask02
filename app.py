@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import math
+import math, forms
 
 app = Flask(__name__)
 
@@ -13,14 +13,18 @@ def index():
 def calculos():
     
     if request.method == 'POST':
-        numero1 = request.form['numero1']
-        numero2 = request.form['numero2']
-        opcin = request.form['opcion']
-        if opcin == 'suma':
-            resultado = int(numero1) + int(numero2)
-        if opcin == 'resta':
-            resultado = int(numero1) - int(numero2)
-        return render_template('calculos.html', resultado=resultado, numero1=numero1, numero2=numero2)
+        numer1 = request.form['numero1']
+        numer2 = request.form['numero2']
+        opcion = request.form['opcion']  
+        if opcion == 'suma':
+            calcu = int(numer1) + int(numer2)
+        elif opcion == 'resta':
+            calcu = int(numer1) - int(numer2)
+        elif opcion == 'multiplicacion':
+            calcu = int(numer1) * int(numer2)
+        elif opcion == 'division':
+            calcu = int(numer1) / int(numer2)
+        return render_template('calculos.html', calcu=calcu, numer1=numer1, numer2=numer2)
     return render_template('calculos.html')
 
 @app.route('/distancia', methods=['GET', 'POST'])
@@ -34,6 +38,21 @@ def distancia():
         distancia = math.sqrt(math.pow(num3 - num1, 2) + math.pow(num4 - num2, 2))
         return render_template('distancia.html', distancia=distancia, num1=num1, num2=num2, num3=num3, num4=num4)
     return render_template('distancia.html')
+
+@app.route('/alumnos', methods=['GET','POST'])
+def alumnos():
+    mat=0
+    nom=""
+    ape=""
+    email=""
+    alumno_clas=forms.UserForm(request.form)
+    if request.method == 'POST' and alumno_clas.validate():
+        mat=alumno_clas.matricula.data
+        nom=alumno_clas.nombre.data
+        ape=alumno_clas.apellido.data
+        email=alumno_clas.correo.data
+
+    return render_template('alumnos.html', form=alumno_clas, mat=mat, nom=nom, ape=ape, email=email)
 
 @app.route('/user/<string:user>')
 def user(user):
