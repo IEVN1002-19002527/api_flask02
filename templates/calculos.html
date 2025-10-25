@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% import "_macros.html" as datos_macro %}
-    {% block container %}
+
+{% block container %}
                 
         <h1>Operas bas</h1>
 
@@ -9,8 +10,8 @@
              {{datos_macro.datos('numero2','Ingresa el numero 2') }}
 
              <div class="mb-3">
-                <label for="operacion" class="form-label">Operacion</label>
-                <select class="form-select" name="operacion" id="operacion">
+                <label for="Opcion" class="form-label">Operacion</label>
+                <select class="form-select" name="opcion" id="opcion">
                     <option value="suma">Suma</option>
                     <option value="resta">Resta</option>
                     <option value="multiplicacion">Multiplicacion</option>
@@ -20,5 +21,7 @@
 
              <button type="submit" class="btn btn-primary">Calcular</button>
         </form>
+
+        <h1>La operacion de {{numero1}} + {{numero2}} = {{resultado}}</h1>
 
     {%endblock%}
